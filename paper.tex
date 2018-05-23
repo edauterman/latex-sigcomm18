@@ -2,6 +2,7 @@
 
 \usepackage[english]{babel}
 \usepackage{blindtext}
+\usepackage{indentfirst}
 
 % Copyright
 \renewcommand\footnotetextcopyrightpermission[1]{} % removes footnote with conference info
@@ -32,12 +33,12 @@
 
 
 \begin{document}
-\title{A \LaTeX\ Template for SIGCOMM 18}
+\title{Network-Ordered Paxos Reproduction: \\Milestone Report}
 
 %\titlenote{Produces the permission block, and copyright information}
 %\subtitle{Extended Abstract}
 
-\author{Paper \# XXX, XXX pages}
+\author{Emma Dauterman, Zo{\"e} Bohn}
 % \author{Firstname Lastname}
 % \authornote{Note}
 % \orcid{1234-5678-9012}
@@ -51,10 +52,10 @@
 % \email{email@domain.com}
 
 % The default list of authors is too long for headers}
-\renewcommand{\shortauthors}{X.et al.}
+\renewcommand{\shortauthors}{Dauterman, Bohn}
 
 \begin{abstract}
-    \blindtext
+We present our in-progress reproduction of the evaluation of Network-Ordered Paxos \cite{nopaxos} (NOPaxos) by Li et. al.. We describe the problem NOPaxos attempts to solve and discuss the throughput vs. latency and scaling results we are reproducing. Our reproduction is unique in that instead of using dedicated hardware, we are testing on a cloud platform, requiring us to implement ordered unreliable multicast in software.
 \end{abstract}
 
 \maketitle
