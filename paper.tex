@@ -33,7 +33,7 @@
 
 
 \begin{document}
-\title{Network-Ordered Paxos Reproduction: \\Milestone Report}
+\title{Network-Ordered Paxos on a Cloud Platform}
 
 %\titlenote{Produces the permission block, and copyright information}
 %\subtitle{Extended Abstract}
@@ -55,12 +55,18 @@
 \renewcommand{\shortauthors}{Dauterman, Bohn}
 
 \begin{abstract}
-We present our in-progress reproduction of the evaluation of Network-Ordered Paxos \cite{nopaxos} (NOPaxos) by Li et. al.. We describe the problem NOPaxos attempts to solve and discuss the throughput vs. latency and scaling results we are reproducing. Our reproduction is unique in that instead of using dedicated hardware, we are testing on a cloud platform, requiring us to implement ordered unreliable multicast in software.
+We present our evaluation of Network-Ordered Paxos \cite{nopaxos} (NOPaxos) by Li et. al. on a cloud platform. We describe the motivation for the NOPaxos protocol and discuss the extensions to the original software required when running on a cloud platform. We then compare the throughput/latency and scaling capacities of NOPaxos on a cloud platform to those of NOPaxos on dedicated hardware by reproducing Figures 5 and 8 from the original paper \cite{nopaxos}. 
 \end{abstract}
 
 \maketitle
 
-\input{body}
+\input{intro}
+\input{related}
+\input{experiment}
+\input{eval}
+\input{limits}
+\input{future}
+\input{conclusion}
 
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{reference}

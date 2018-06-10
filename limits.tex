@@ -1,0 +1,11 @@
+\section{Limitations}
+
+As this paper presents work that is not a true reproduction project, but rather is an evaluation of an existing system in a new context, we detail the limitations both of our reproduction of the original NOPaxos paper's results and of NOPaxos as a cloud platform consensus protocol.
+
+\subsection{Reproduction}
+
+Because of the platform on which we selected to evaluate NOPaxos, our results did not confirm those of the original NOPaxos paper; this is as expected. However, there is value in attempting to reproduce precisely the results of any experiment, and we therefore encourage those with dedicated hardware to attempt a focused reproduction project to confirm the results of the original NOPaxos paper. 
+
+\subsection{Inability to Scale}
+
+We have demonstrated that on a cloud platform, while NOPaxos does achieve better performance than its peer consensus protocols, it can only do so at a small scale (between 3-5 replicas and 60K-80K ops/second) because of the necessary modifications to the sequencer. While this may make it a good choice for some systems, systems that require the ability to scale to higher levels of throughput and replication should not use NOPaxos. 

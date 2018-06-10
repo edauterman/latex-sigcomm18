@@ -1,0 +1,8 @@
+\section{conclusion}
+
+In this paper, we evaluated the NOPaxos consensus protocol, a protocol that was shown to outperform its peers on dedicated hardware, on a cloud platform. This required modifying a key piece of the protocol, ordered unreliable multicast (OUM), to run in software at the NOPaxos sequencer without multicast rather than in hardware in the network. The results of our experiments showed that while NOPaxos on a cloud platform still achieves better latency than its peers at lower throughput and replication levels, it is unable to scale to the degree that it was able to on dedicated hardware. We also showed that the bottleneck impacting NOPaxos scalability lay at the sequencer, most likely a result of the modifications that pushed the multicast functionality into the sequencer software. We have identified both the limitations of our experiments and areas for future work in this field, and we hope to see more innovation and investigation surrounding the performance of consensus protocols on cloud platforms in the future.  
+
+\section{Acknowledgements}
+
+We would like to thank the authors of the original NOPaxos paper for their helpful suggestions, responsiveness, and willingness to collaborate with us on this project. We would also like to thank the CS 244 instructors and TAs, Nick McKeown, Keith Winstein, Saachi Jain, and Emre Orbay, for their guidance and support.
+

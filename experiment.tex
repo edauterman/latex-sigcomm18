@@ -1,0 +1,32 @@
+\section{Experiment Design}
+
+To run our experiments, we extended the NOPaxos code base created by the authors of \cite{nopaxos}: 
+\par \quad \textit{https://github.com/UWSysLab/NOPaxos}.
+\newline
+Our fork of this code base is available at: 
+\par \quad \textit{https://github.com/edauterman/NOPaxos}. 
+\newline
+\par We leveraged the existing benchmarking code to compare NOPaxos to four other protocols: Fast Paxos, Paxos, Paxos with Batching, and (as a baseline) an unreplicated protocol. As stated previously, we did not evaluate Speculative Paxos (as the original paper does) due to time and cloud platform constraints. 
+
+To minimize microsecond-level latency, we removed existing print statements from the benchmarking code, which we found noticeably improved throughput and latency. 
+
+For consistency with the original dedicated hardware experiments, we collect our throughput/latency measurements with five active replica nodes. In addition, all latency measurements are of average latency, and all Paxos with Batching measurement were taken with a maximum batch size set to 64 (although this information is not included in the original paper \cite{nopaxos}, we were able to communicate with the authors directly about these parameters).
+
+For all experiments, we run five dedicated client machines and add more concurrent client threads to increase throughput as necessary, as suggested by the authors of \cite{nopaxos}. Each client thread simultaneously makes 1,000 requests. In addition, each data point reported in our evaluation is the average of 10 runs of the experiment with identical parameters, necessary to reduce variation between runs when measuring microsecond-level latencies. We found that averaging across at least 5 runs was critical for reproducability, but we saw diminishing returns using between 5 and 10 runs. 
+
+
+\subsection{Cloud Platform}
+
+We ran all of our experiments on the Google Cloud (gcloud) platform. We used a total of 15 compute nodes (9 replicas, 5 clients, and 1 sequencer). All nodes are located in the same geographic zone (us-west1-a); we found that placing nodes in different zones negatively impacted performance by several orders of magnitude; thus a system that is geo-replicated should not expect to be able to reproduce the results we show in this paper. 
+
+The replica compute nodes and the sequencer have IP forwarding enabled so that the sequencer can properly forward packets to the replicas; we also experimented with packet encapsulation, which allowed us to run NOPaxos without IP forwarding enabled. However, we found that this had a (small) negative impact on performance due to additional overhead.
+
+\subsection{Sequencer Modifications}
+
+Recall that in NOPaxos, all packets for a OUM group are routed through a single sequencer, determining the global packet order. The sequencer can be implemented in one of three locations in the network: in the switches themselves, in hardware middleboxes, and at end-hosts. At the time of the paper, programmable switches that could implement OUM were not commercially available and so the authors performed most of their evaluation using a hardware middlebox sequencer. Because cloud platforms preclude the programming of switches or the insertion of middleboxes, we chose to use implement the sequencer at the end-host. This required creating a sequencer node to route all packets through. 
+
+The NOPaxos code base includes the implementation in C++ for the sequencer using a raw socket. However, because most cloud platforms do not support multicast, we had to adapt the sequencer to run without multicast. Per the suggestion of the authors, we modified the end-host sequencer to send individual copies of packets to each replica in place of multicast. To preserve the original client source address, the end-host sequencer simply forwards client packets to replicas.
+
+\subsection{Reproducibility}
+
+We extended the NOPaxos code base with a script to automate the collection of all measurements taken for our evaluation, including figure generation. For details, see the README at \textit{https://github.com/edauterman/NOPaxos}.  
